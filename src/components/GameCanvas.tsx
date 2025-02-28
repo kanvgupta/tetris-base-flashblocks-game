@@ -42,20 +42,20 @@ export const GameCanvas: React.FC<GameCanvasProps> = ({
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       if (!canvasRef.current) return;
-      
       const rect = canvasRef.current.getBoundingClientRect();
       const x = e.clientX - rect.left;
-      
       onCatcherMove(x - catcher.width / 2);
     };
     
-    if (canvasRef.current) {
-      canvasRef.current.addEventListener('mousemove', handleMouseMove);
+    const currentCanvas = canvasRef.current;
+    
+    if (currentCanvas) {
+      currentCanvas.addEventListener('mousemove', handleMouseMove);
     }
     
     return () => {
-      if (canvasRef.current) {
-        canvasRef.current.removeEventListener('mousemove', handleMouseMove);
+      if (currentCanvas) {
+        currentCanvas.removeEventListener('mousemove', handleMouseMove);
       }
     };
   }, [catcher.width, onCatcherMove]);

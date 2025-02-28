@@ -24,15 +24,15 @@ const Block: React.FC<BlockProps> = ({ block, color }) => {
   }) || false;
   
   // Add debug logging for transactions
-  if (block.isFlashBlock && block.details?.transactions?.length > 0) {
+  if (block.isFlashBlock && block.details && block.details.transactions && block.details.transactions.length > 0) {
     // Log once every few seconds to avoid flooding the console
     const shouldLog = Math.random() < 0.1; 
     if (shouldLog) {
-      console.log(`Flash block ${block.blockNumber} has ${block.details?.transactions.length} transactions`);
+      console.log(`Flash block ${block.blockNumber} has ${block.details.transactions.length} transactions`);
       
       // Check for user transactions and log them
-      const userTxs = block.details?.transactions?.filter(tx => tx.isUserTransaction);
-      if (userTxs && userTxs.length > 0) {
+      const userTxs = block.details.transactions.filter(tx => tx.isUserTransaction);
+      if (userTxs.length > 0) {
         console.log(`Found user transaction in flash block ${block.blockNumber}:`, userTxs.map(tx => tx.hash));
       }
     }

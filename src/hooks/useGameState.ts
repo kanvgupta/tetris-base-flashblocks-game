@@ -364,7 +364,7 @@ export function useGameState() {
     return () => {
       clearInterval(standardBlockInterval);
     };
-  }, []); // Empty dependency array to run only once on mount
+  }, [createGameBlock]); // Add createGameBlock as a dependency
 
   // Fetch flash blocks at regular intervals (fallback if WebSocket fails)
   useEffect(() => {
@@ -455,7 +455,7 @@ export function useGameState() {
     return () => {
       clearInterval(flashBlockInterval);
     };
-  }, []); // Empty dependency array to run only once on mount
+  }, [createGameBlock]); // Add createGameBlock as a dependency
 
   // Game loop for updating block positions and checking collisions
   useEffect(() => {
@@ -530,7 +530,7 @@ export function useGameState() {
         cancelAnimationFrame(animationFrameRef.current);
       }
     };
-  }, [catcher, gameHeight]);
+  }, [catcher, gameHeight, gameWidth, createGameBlock]);
 
   // Update score based on newly caught blocks
   useEffect(() => {
